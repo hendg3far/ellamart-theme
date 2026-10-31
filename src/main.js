@@ -1,5 +1,13 @@
 import { createApp } from "vue";
-import App from "./App.vue";
-import store from "./store";
+import { createPinia } from "pinia";
 
-createApp(App).use(store).mount("#app");
+import router from "./router";
+import mitt from "mitt";
+
+import App from "./App.vue";
+import "@/assets/css/main.css";
+
+const pinia = createPinia();
+const emiiter = mitt();
+
+createApp(App).provide("emitter", emiiter).use(router).use(pinia).mount("#app");
