@@ -1,17 +1,37 @@
 import { defineStore } from "pinia";
+import { productService } from "@/services/productService";
 
 const ProductModule = defineStore("productModule", {
   state: () => ({
     products: [],
+    newProducts: [],
+    isLoading: false,
   }),
   actions: {
     async getProducts() {
+      this.isLoading = true;
       try {
-        const response = await fetch("https://dummyjson.com/products");
-        const data = await response.json();
+        const data = await productService.fetchProducts();
         this.products = data.products.slice(0, 10);
       } catch (error) {
         console.error("Failed fetching products:", error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async getProductsByLaptopCategory() {
+      this.isLoading = true;
+      try {
+        const data = await productService.fetchProducts();
+        this.newProducts = data.products.filter(
+          // eslint-disable-next-line prettier/prettier
+          (el) => el.category === "groceries",
+        );
+      } catch (error) {
+        console.error("Failed fetching products:", error);
+      } finally {
+        this.isLoading = false;
       }
     },
   },

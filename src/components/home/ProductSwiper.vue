@@ -1,11 +1,8 @@
 <template>
-  <div class="max-w-screen-xl mx-auto px-4 py-8">
+  <div class="px-4 py-8">
     <h2 class="font-bold text-red-600 text-5xl mb-12">Flash Deals</h2>
 
-    <div
-      class="flex justify-center items-center h-[400px]"
-      v-if="!props.products || props.products.length === 0"
-    >
+    <template v-if="isLoading">
       <div role="status">
         <svg
           aria-hidden="true"
@@ -25,68 +22,11 @@
         </svg>
         <span class="sr-only">Loading...</span>
       </div>
-    </div>
+    </template>
 
     <swiper v-else v-bind="swiperOptions" :modules="modules">
-      <swiper-slide v-for="product in props.products" :key="product.id">
-        <div class="card flex flex-col gap-3 group">
-          <img
-            width="200"
-            height="200"
-            class="object-contain mx-auto group-hover:scale-110 transition-all duration-300"
-            :src="product.thumbnail"
-            :alt="product.title"
-          />
-          <h3 class="font-medium text-xl truncate">{{ product.title }}</h3>
-          <p class="text-gray-600 line-clamp-2 text-sm">
-            {{ product.description }}
-          </p>
-          <div class="flex text-amber-400">
-            <svg
-              v-for="star in 5"
-              :key="star"
-              :class="
-                star <= Math.round(product.rating)
-                  ? 'text-amber-400'
-                  : 'text-gray-200'
-              "
-              class="w-5 h-5 fill-current"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-              />
-            </svg>
-
-            <span class="text-xs text-gray-500 font-medium ml-1"
-              >({{ product.rating.toFixed(1) }})</span
-            >
-          </div>
-          <span class="flex gap-2"
-            ><del class="text-gray-400 text-sm">${{ product.price }} USD</del>
-            <strong class="font-medium text-red-600"
-              >${{
-                (
-                  product.price -
-                  product.price * (product.discountPercentage / 100)
-                ).toFixed(1)
-              }}
-              USD</strong
-            ></span
-          >
-          <div class="flex gap-2 mt-2">
-            <img
-              v-for="(image, i) in product.images"
-              :key="i"
-              width="40"
-              height="40"
-              class="rounded-full object-cover border border-light p-1"
-              :src="image"
-              :alt="product.title"
-              @click="product.thumbnail = image"
-            />
-          </div>
-        </div>
+      <swiper-slide v-for="product in products" :key="product.id">
+        <ProductCard :product="product" />
       </swiper-slide>
       <div
         class="swiper-button-prev border border-gray-600 text-gray-600 rounded-full p-3 z-20 w-10 h-10"
@@ -104,14 +44,19 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import ProductCard from "../global/ProductCard.vue";
 
 const modules = [Autoplay, Navigation];
 
-const props = defineProps({
+defineProps({
   products: {
     type: Array,
     required: true,
     default: () => [],
+  },
+  isLoading: {
+    type: Boolean,
+    default: false,
   },
 });
 

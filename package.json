@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@primeicons/vue": "^8.0.2",
+    "axios": "^1.21.0",
     "core-js": "^3.8.3",
     "flowbite": "^4.0.2",
     "mitt": "^3.0.1",

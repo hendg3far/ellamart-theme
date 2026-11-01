@@ -2,12 +2,14 @@
   <MainBanner />
   <TheFeatures />
   <TopOffers />
-  <ProductSwiper :products="products" />
-  <TopCategories :categories="categories" />
+  <ProductSwiper :products="products" :is-loading="productsLoading" />
+  <TopCategories :categories="categories" :is-loading="categoryLoading" />
+  <NewProducts :products="newProducts" :is-loading="productsLoading" />
 </template>
 
 <script setup>
 import MainBanner from "@/components/home/MainBanner.vue";
+import NewProducts from "@/components/home/NewProducts.vue";
 import ProductSwiper from "@/components/home/ProductSwiper.vue";
 import TheFeatures from "@/components/home/TheFeatures.vue";
 import TopCategories from "@/components/home/TopCategories.vue";
@@ -18,13 +20,18 @@ import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 
 const productStore = ProductModule();
-const { products } = storeToRefs(productStore);
+const {
+  products,
+  newProducts,
+  isLoading: productsLoading,
+} = storeToRefs(productStore);
 
 const categoryStore = CategoryModule();
-const { categories } = storeToRefs(categoryStore);
+const { categories, isLoading: categoryLoading } = storeToRefs(categoryStore);
 
 onMounted(() => {
   productStore.getProducts();
+  productStore.getProductsByLaptopCategory();
   categoryStore.getCategories();
 });
 </script>
