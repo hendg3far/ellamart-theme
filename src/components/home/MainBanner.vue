@@ -3,7 +3,7 @@
     class="main-banner py-28 bg-cover"
     :style="{ backgroundImage: `url(${bgImage})` }"
   >
-    <div class="max-w-screen-xl mx-auto px-4 flex flex-col gap-8">
+    <div class="max-w-[1600px] mx-auto px-4 flex flex-col gap-8">
       <h1 class="text-5xl text-white leading-relaxed font-bold">
         <span class="text-secondary">Huge Saving</span> on <br />
         UHD Televisions

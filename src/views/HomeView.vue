@@ -5,12 +5,14 @@
   <ProductSwiper :products="products" :is-loading="productsLoading" />
   <TopCategories :categories="categories" :is-loading="categoryLoading" />
   <NewProducts :products="newProducts" :is-loading="productsLoading" />
+  <QualityFeatures />
 </template>
 
 <script setup>
 import MainBanner from "@/components/home/MainBanner.vue";
 import NewProducts from "@/components/home/NewProducts.vue";
 import ProductSwiper from "@/components/home/ProductSwiper.vue";
+import QualityFeatures from "@/components/home/QualityFeatures.vue";
 import TheFeatures from "@/components/home/TheFeatures.vue";
 import TopCategories from "@/components/home/TopCategories.vue";
 import TopOffers from "@/components/home/TopOffers.vue";

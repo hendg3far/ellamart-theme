@@ -1,6 +1,6 @@
 <template>
   <div class="py-8">
-    <div class="max-w-screen-xl mx-auto px-8">
+    <div class="max-w-[1600px] mx-auto px-8">
       <div
         class="grid grid-cols-12 md:gap-8 gap-4 md:divide-x md:divide-y-0 divide-y divide-secondary/20"
       >
