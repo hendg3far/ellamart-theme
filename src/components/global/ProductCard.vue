@@ -4,6 +4,7 @@
       width="200"
       height="200"
       class="object-contain mx-auto group-hover:scale-110 transition-all duration-300 h-48"
+      loading="lazy"
       :src="currentThumbnail"
       :alt="product.title"
     />
@@ -45,6 +46,7 @@
         :key="i"
         width="40"
         height="40"
+        loading="lazy"
         :class="[
           'rounded-full object-cover border p-1 cursor-pointer transition-all',
           currentThumbnail === image

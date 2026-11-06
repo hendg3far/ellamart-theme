@@ -6,9 +6,14 @@
   <TopCategories :categories="categories" :is-loading="categoryLoading" />
   <NewProducts :products="newProducts" :is-loading="productsLoading" />
   <QualityFeatures />
+  <FurnitureProducts
+    :products="furnitureProducts"
+    :is-loading="productsLoading"
+  />
 </template>
 
 <script setup>
+import FurnitureProducts from "@/components/home/FurnitureProducts.vue";
 import MainBanner from "@/components/home/MainBanner.vue";
 import NewProducts from "@/components/home/NewProducts.vue";
 import ProductSwiper from "@/components/home/ProductSwiper.vue";
@@ -25,6 +30,7 @@ const productStore = ProductModule();
 const {
   products,
   newProducts,
+  furnitureProducts,
   isLoading: productsLoading,
 } = storeToRefs(productStore);
 
@@ -34,6 +40,7 @@ const { categories, isLoading: categoryLoading } = storeToRefs(categoryStore);
 onMounted(() => {
   productStore.getProducts();
   productStore.getProductsByLaptopCategory();
+  productStore.getProductsByFurnitureCategory();
   categoryStore.getCategories();
 });
 </script>

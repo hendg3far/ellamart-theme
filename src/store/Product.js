@@ -5,6 +5,7 @@ const ProductModule = defineStore("productModule", {
   state: () => ({
     products: [],
     newProducts: [],
+    furnitureProducts: [],
     isLoading: false,
   }),
   actions: {
@@ -27,6 +28,21 @@ const ProductModule = defineStore("productModule", {
         this.newProducts = data.products.filter(
           // eslint-disable-next-line prettier/prettier
           (el) => el.category === "groceries",
+        );
+      } catch (error) {
+        console.error("Failed fetching products:", error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async getProductsByFurnitureCategory() {
+      this.isLoading = true;
+      try {
+        const data = await productService.fetchProducts();
+        this.furnitureProducts = data.products.filter(
+          // eslint-disable-next-line prettier/prettier
+          (el) => el.category === "furniture",
         );
       } catch (error) {
         console.error("Failed fetching products:", error);
