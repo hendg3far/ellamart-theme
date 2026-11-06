@@ -1,8 +1,8 @@
 <template>
-  <div class="card flex flex-col gap-3 group bg-white p-4 rounded-xl shadow-sm">
+  <div class="card flex flex-col gap-3 group bg-white p-4 rounded-xl">
     <img
       width="200"
-      height="200"
+      height="192"
       class="object-contain mx-auto group-hover:scale-110 transition-all duration-300 h-48"
       loading="lazy"
       :src="currentThumbnail"

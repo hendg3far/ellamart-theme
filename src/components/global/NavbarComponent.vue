@@ -15,6 +15,8 @@
           src="@/assets/logo.avif"
           alt="logo"
           loading="lazy"
+          width="165"
+          height="34"
         />
       </RouterLink>
 
@@ -85,32 +87,13 @@
         <ul
           class="font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0"
         >
-          <li>
-            <a
+          <li v-for="(category, i) in categories" :key="i">
+            <RouterLink
+              :to="{ name: 'categories', params: { type: category.slug } }"
               href="#"
               class="block py-2 px-3 rounded text-white md:p-0"
               aria-current="page"
-              >Theme Demo</a
-            >
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 rounded text-white md:p-0"
-              >About</a
-            >
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 rounded text-white md:p-0"
-              >Services</a
-            >
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 rounded text-white md:p-0"
-              >Pricing</a
-            >
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-3 rounded text-white md:p-0"
-              >Contact</a
+              >{{ category.name }}</RouterLink
             >
           </li>
         </ul>
@@ -123,7 +106,12 @@
         class="inline-flex items-center justify-center text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
         type="button"
       >
-        <img width="30" :src="selectedLang.imgSrc" :alt="selectedLang.title" />
+        <img
+          width="30"
+          height="15"
+          :src="selectedLang.imgSrc"
+          :alt="selectedLang.title"
+        />
         &nbsp; &nbsp; {{ selectedLang.title }} -
         {{ selectedLang.currency }}
         <svg
@@ -157,8 +145,13 @@
             <a
               @click="selectedLang = lang"
               class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded cursor-pointer"
-              ><img width="30" :src="lang.imgSrc" :alt="lang.title" /> &nbsp;
-              &nbsp; {{ lang.title }} - {{ lang.currency }}</a
+              ><img
+                width="30"
+                height="15"
+                :src="lang.imgSrc"
+                :alt="lang.title"
+              />
+              &nbsp; &nbsp; {{ lang.title }} - {{ lang.currency }}</a
             >
           </li>
         </ul>
@@ -174,8 +167,13 @@ import CartComponent from "./CartComponent.vue";
 import { inject, onMounted, onUnmounted, ref } from "vue";
 import usaFlag from "@/assets/media/flags/usa-flag.webp";
 import egyptFlag from "@/assets/media/flags/egypt-flag.webp";
+import CategoryModule from "@/store/Category.js";
+import { storeToRefs } from "pinia";
 
 const emitter = inject("emitter");
+
+const categoryStore = CategoryModule();
+const { categories } = storeToRefs(categoryStore);
 
 const selectedLang = ref({
   imgSrc: usaFlag,

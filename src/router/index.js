@@ -7,6 +7,11 @@ const routes = [
     name: "home",
     component: HomeView,
   },
+  {
+    path: "/categories/:type",
+    name: "categories",
+    component: () => import("../views/CategoryView.vue"),
+  },
 ];
 
 const router = createRouter({

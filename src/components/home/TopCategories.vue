@@ -32,7 +32,8 @@
         </template>
 
         <template v-else>
-          <div
+          <RouterLink
+            :to="{ name: 'categories', params: { type: cat.slug } }"
             class="xl:col-span-3 lg:col-span-4 sm:col-span-6 col-span-12 mx-auto"
             v-for="cat in categories"
             :key="cat.slug"
@@ -46,7 +47,7 @@
                 {{ cat.name }}
               </h5>
             </div>
-          </div>
+          </RouterLink>
         </template>
       </div>
     </div>
