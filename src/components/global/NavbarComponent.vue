@@ -205,6 +205,7 @@ const handleScroll = () => {
 
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
+  categoryStore.getCategories();
 });
 
 onUnmounted(() => {

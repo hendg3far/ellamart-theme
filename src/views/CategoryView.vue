@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { computed, watch, defineProps } from "vue";
+import { computed, watch } from "vue";
 import { storeToRefs } from "pinia";
 
 import ProductCard from "@/components/global/ProductCard.vue";
@@ -38,16 +38,9 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 
 const categoryStore = CategoryModule();
-const { productsByType } = storeToRefs(categoryStore);
+const { productsByType, isLoading } = storeToRefs(categoryStore);
 
 const CategoryName = computed(() => route.params.type);
-
-defineProps({
-  isLoading: {
-    type: Boolean,
-    default: false,
-  },
-});
 
 watch(
   () => route.params.type,

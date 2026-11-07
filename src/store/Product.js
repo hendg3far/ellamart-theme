@@ -7,7 +7,7 @@ const ProductModule = defineStore("productModule", {
     newProducts: [],
     furnitureProducts: [],
     isLoading: false,
-    product: {},
+    product: null,
   }),
   actions: {
     async getProducts() {
