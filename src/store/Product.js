@@ -7,6 +7,7 @@ const ProductModule = defineStore("productModule", {
     newProducts: [],
     furnitureProducts: [],
     isLoading: false,
+    product: {},
   }),
   actions: {
     async getProducts() {
@@ -46,6 +47,18 @@ const ProductModule = defineStore("productModule", {
         );
       } catch (error) {
         console.error("Failed fetching products:", error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async getProductById(id) {
+      this.isLoading = true;
+      try {
+        const data = await productService.fetchProductById(id);
+        this.product = data;
+      } catch (error) {
+        console.error("Failed fetching product by ID:", error);
       } finally {
         this.isLoading = false;
       }

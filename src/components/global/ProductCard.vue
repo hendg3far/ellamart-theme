@@ -1,5 +1,8 @@
 <template>
-  <div class="card flex flex-col gap-3 group bg-white p-4 rounded-xl">
+  <RouterLink
+    :to="`/product/${product.id}`"
+    class="card flex flex-col gap-3 group bg-white p-4 rounded-xl"
+  >
     <img
       width="200"
       height="192"
@@ -58,7 +61,7 @@
         @click="changeThumbnail(image)"
       />
     </div>
-  </div>
+  </RouterLink>
 </template>
 
 <script setup>

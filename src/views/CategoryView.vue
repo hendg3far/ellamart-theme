@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[1600px] mx-auto px-4 py-8">
+  <div class="max-w-screen-xl mx-auto p-8">
     <h2 class="font-bold text-5xl mb-12 uppercase">{{ CategoryName }}</h2>
     <div class="grid grid-cols-12 gap-4">
       <template v-if="isLoading">
