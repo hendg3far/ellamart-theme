@@ -38,6 +38,7 @@
             <swiper v-bind="swiperOptions" :modules="modules">
               <swiper-slide v-for="(img, i) in product.images" :key="i">
                 <img
+                  width="100"
                   @click="changeThumbnail(img)"
                   :src="img"
                   class="object-cover"
@@ -179,6 +180,10 @@
                 </button>
               </div>
             </form>
+            <p class="text-sm">
+              <strong class="font-semibold">Subtotal: </strong>
+              <span class="text-gray-500">${{ subtotal.toFixed(2) }} USD</span>
+            </p>
             <div class="mt-6">
               <button
                 class="px-10 py-3 bg-dark text-white rounded-full hover:bg-primary duration-300 transition-colors"
@@ -216,6 +221,10 @@ const productStore = ProductModule();
 const { product, isLoading } = storeToRefs(productStore);
 
 const quantity = ref(1);
+
+const subtotal = computed(() => {
+  return (product.value?.price || 0) * 0.9 * quantity.value;
+});
 
 const selectedImage = ref(null);
 

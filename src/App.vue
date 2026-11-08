@@ -1,6 +1,7 @@
 <template>
   <MainLayout>
     <RouterView />
+    <QuickView />
   </MainLayout>
 </template>
 
@@ -8,6 +9,7 @@
 import MainLayout from "./layouts/MainLayout.vue";
 import { onMounted } from "vue";
 import { initFlowbite } from "flowbite";
+import QuickView from "./components/global/QuickView.vue";
 
 // initialize components based on data attribute selectors
 onMounted(() => {

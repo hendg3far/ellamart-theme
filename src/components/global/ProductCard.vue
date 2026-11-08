@@ -1,15 +1,24 @@
 <template>
   <div class="card flex flex-col gap-3 group bg-white p-4 rounded-xl">
-    <RouterLink :to="`/product/${product.id}`">
-      <img
-        width="200"
-        height="192"
-        class="object-contain mx-auto group-hover:scale-110 transition-all duration-300 h-48"
-        loading="lazy"
-        :src="currentThumbnail"
-        :alt="product.title"
-      />
-    </RouterLink>
+    <div class="relative">
+      <RouterLink :to="`/product/${product.id}`">
+        <img
+          width="200"
+          height="192"
+          class="object-contain mx-auto group-hover:scale-110 transition-all duration-300 h-48"
+          loading="lazy"
+          :src="currentThumbnail"
+          :alt="product.title"
+        />
+      </RouterLink>
+
+      <button
+        @click="openQuickView"
+        class="bg-dark text-white rounded-full py-2 px-4 text-sm absolute top-[50%] inset-x-0 mx-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-fit"
+      >
+        Quick View
+      </button>
+    </div>
 
     <h3 class="font-medium text-xl truncate">
       <RouterLink :to="`/product/${product.id}`">{{
@@ -68,7 +77,13 @@
 </template>
 
 <script setup>
-import { computed, ref, defineProps } from "vue";
+import { computed, ref, defineProps, inject } from "vue";
+
+const emitter = inject("emitter");
+
+const openQuickView = () => {
+  emitter.emit("open-quick-view");
+};
 
 const props = defineProps({
   product: {
