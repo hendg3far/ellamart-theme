@@ -16,7 +16,7 @@
       <template v-else>
         <div
           class="lg:col-span-3 md:col-span-4 sm:col-span-6 col-span-12"
-          v-for="product in productsByType"
+          v-for="product in category"
           :key="product.id"
         >
           <ProductCard :product="product" />
@@ -38,7 +38,7 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 
 const categoryStore = CategoryModule();
-const { productsByType, isLoading } = storeToRefs(categoryStore);
+const { category, isLoading } = storeToRefs(categoryStore);
 
 const CategoryName = computed(() => route.params.type);
 

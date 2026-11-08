@@ -5,7 +5,7 @@ const CategoryModule = defineStore("categoryModule", {
   state: () => ({
     categories: [],
     isLoading: false,
-    productsByType: [],
+    category: [],
   }),
   actions: {
     async getCategories() {
@@ -24,7 +24,7 @@ const CategoryModule = defineStore("categoryModule", {
       this.isLoading = true;
       try {
         const data = await categoryService.fetchCategoriesByType(type);
-        this.productsByType = data.products;
+        this.category = data.products;
       } catch (error) {
         console.error("Failed fetching categories by type:", error);
       } finally {

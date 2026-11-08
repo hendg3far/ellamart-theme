@@ -1,18 +1,21 @@
 <template>
-  <RouterLink
-    :to="`/product/${product.id}`"
-    class="card flex flex-col gap-3 group bg-white p-4 rounded-xl"
-  >
-    <img
-      width="200"
-      height="192"
-      class="object-contain mx-auto group-hover:scale-110 transition-all duration-300 h-48"
-      loading="lazy"
-      :src="currentThumbnail"
-      :alt="product.title"
-    />
+  <div class="card flex flex-col gap-3 group bg-white p-4 rounded-xl">
+    <RouterLink :to="`/product/${product.id}`">
+      <img
+        width="200"
+        height="192"
+        class="object-contain mx-auto group-hover:scale-110 transition-all duration-300 h-48"
+        loading="lazy"
+        :src="currentThumbnail"
+        :alt="product.title"
+      />
+    </RouterLink>
 
-    <h3 class="font-medium text-xl truncate">{{ product.title }}</h3>
+    <h3 class="font-medium text-xl truncate">
+      <RouterLink :to="`/product/${product.id}`">{{
+        product.title
+      }}</RouterLink>
+    </h3>
     <p class="text-gray-600 line-clamp-2 text-sm">{{ product.description }}</p>
 
     <div class="flex items-center text-amber-400">
@@ -61,7 +64,7 @@
         @click="changeThumbnail(image)"
       />
     </div>
-  </RouterLink>
+  </div>
 </template>
 
 <script setup>

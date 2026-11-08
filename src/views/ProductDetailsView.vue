@@ -29,11 +29,28 @@
     <div v-else-if="product">
       <div class="grid grid-cols-12">
         <div class="lg:col-span-5 col-span-12">
-          <img
-            :src="product.thumbnail"
-            :alt="product.title"
-            class="w-full h-auto mb-4"
-          />
+          <div class="flex flex-col gap-3">
+            <img
+              :src="currentThumbnail"
+              :alt="product.title"
+              class="w-full h-auto mb-4"
+            />
+            <swiper v-bind="swiperOptions" :modules="modules">
+              <swiper-slide v-for="(img, i) in product.images" :key="i">
+                <img
+                  @click="changeThumbnail(img)"
+                  :src="img"
+                  class="object-cover"
+                />
+              </swiper-slide>
+              <div
+                class="swiper-button-prev border border-gray-600 text-gray-600 rounded-full p-3 z-20 w-10 h-10"
+              ></div>
+              <div
+                class="swiper-button-next border border-gray-600 text-gray-600 rounded-full p-3 z-20 w-10 h-10"
+              ></div>
+            </swiper>
+          </div>
         </div>
         <div class="lg:col-span-7 col-span-12">
           <h1 class="font-bold text-2xl mb-3 capitalize">
@@ -98,6 +115,7 @@
                 class="relative flex items-center max-w-[8rem] bg-light rounded-full"
               >
                 <button
+                  @click="quantity > 1 ? quantity-- : false"
                   type="button"
                   id="decrement-button"
                   data-input-counter-decrement="quantity-input"
@@ -132,8 +150,10 @@
                   placeholder="999"
                   value="5"
                   required
+                  v-model="quantity"
                 />
                 <button
+                  @click="quantity++"
                   type="button"
                   id="increment-button"
                   data-input-counter-increment="quantity-input"
@@ -159,6 +179,13 @@
                 </button>
               </div>
             </form>
+            <div class="mt-6">
+              <button
+                class="px-10 py-3 bg-dark text-white rounded-full hover:bg-primary duration-300 transition-colors"
+              >
+                Add to cart
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -171,16 +198,34 @@
 </template>
 
 <script setup>
-import { watch, computed } from "vue";
+import { watch, computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Autoplay, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 import ProductModule from "@/store/Product";
+
+const modules = [Autoplay, Navigation];
 
 const route = useRoute();
 const productId = computed(() => route.params.id);
 
 const productStore = ProductModule();
 const { product, isLoading } = storeToRefs(productStore);
+
+const quantity = ref(1);
+
+const selectedImage = ref(null);
+
+const currentThumbnail = computed(() => {
+  return selectedImage.value || product.value.thumbnail;
+});
+
+const changeThumbnail = (image) => {
+  selectedImage.value = image;
+};
 
 watch(
   () => productId.value,
@@ -192,4 +237,28 @@ watch(
   // eslint-disable-next-line prettier/prettier
   { immediate: true },
 );
+
+const swiperOptions = {
+  slidesPerView: 3,
+  speed: 1000,
+  autoplay: {
+    delay: 2500,
+    disableOnInteraction: false,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  breakpoints: {
+    0: {
+      slidesPerView: 2,
+    },
+    576: {
+      slidesPerView: 3,
+    },
+    992: {
+      slidesPerView: 3,
+    },
+  },
+};
 </script>
