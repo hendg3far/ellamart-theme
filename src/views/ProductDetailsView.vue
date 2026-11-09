@@ -35,22 +35,24 @@
               :alt="product.title"
               class="w-full h-auto mb-4"
             />
-            <swiper v-bind="swiperOptions" :modules="modules">
-              <swiper-slide v-for="(img, i) in product.images" :key="i">
-                <img
-                  width="100"
-                  @click="changeThumbnail(img)"
-                  :src="img"
-                  class="object-cover"
-                />
-              </swiper-slide>
-              <div
-                class="swiper-button-prev border border-gray-600 text-gray-600 rounded-full p-3 z-20 w-10 h-10"
-              ></div>
-              <div
-                class="swiper-button-next border border-gray-600 text-gray-600 rounded-full p-3 z-20 w-10 h-10"
-              ></div>
-            </swiper>
+            <div class="relative">
+              <swiper v-bind="swiperOptions" :modules="modules">
+                <swiper-slide v-for="(img, i) in product.images" :key="i">
+                  <img
+                    width="100"
+                    @click="changeThumbnail(img)"
+                    :src="img"
+                    class="object-cover cursor-pointer"
+                  />
+                </swiper-slide>
+                <div
+                  class="swiper-button-prev border border-gray-600 text-gray-600 rounded-full p-3 z-20 w-10 h-10"
+                ></div>
+                <div
+                  class="swiper-button-next border border-gray-600 text-gray-600 rounded-full p-3 z-20 w-10 h-10"
+                ></div>
+              </swiper>
+            </div>
           </div>
         </div>
         <div class="lg:col-span-7 col-span-12">

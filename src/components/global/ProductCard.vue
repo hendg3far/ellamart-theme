@@ -81,10 +81,6 @@ import { computed, ref, defineProps, inject } from "vue";
 
 const emitter = inject("emitter");
 
-const openQuickView = () => {
-  emitter.emit("open-quick-view");
-};
-
 const props = defineProps({
   product: {
     type: Object,
@@ -107,4 +103,8 @@ const discountedPrice = computed(() => {
   const discount = props.product.discountPercentage || 0;
   return (price - price * (discount / 100)).toFixed(1);
 });
+
+const openQuickView = () => {
+  emitter.emit("open-quick-view", props.product);
+};
 </script>
