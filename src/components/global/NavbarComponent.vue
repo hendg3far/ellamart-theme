@@ -158,12 +158,10 @@
       </div>
     </div>
   </nav>
-  <CartComponent />
 </template>
 
 <script setup>
 import { Heart, Search, ShoppingBag, User } from "@primeicons/vue";
-import CartComponent from "./CartComponent.vue";
 import { inject, onMounted, onUnmounted, ref } from "vue";
 import usaFlag from "@/assets/media/flags/usa-flag.webp";
 import egyptFlag from "@/assets/media/flags/egypt-flag.webp";

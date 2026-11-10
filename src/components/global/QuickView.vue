@@ -196,6 +196,7 @@
           </p>
           <div class="mt-6">
             <button
+              @click="handleAddToCart"
               class="px-10 py-3 bg-dark text-white rounded-full hover:bg-primary duration-300 transition-colors"
             >
               Add to cart
@@ -213,6 +214,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import CartModule from "@/store/Cart";
 
 const modules = [Autoplay, Navigation];
 
@@ -220,6 +222,9 @@ const emitter = inject("emitter");
 const isOpen = ref(false);
 
 const product = ref(null);
+
+const cartStore = CartModule();
+const { addToCart } = cartStore;
 
 const quantity = ref(1);
 
@@ -242,6 +247,12 @@ const openQuickView = (data) => {
   quantity.value = 1;
   product.value = data;
   isOpen.value = !isOpen.value;
+};
+
+const handleAddToCart = () => {
+  if (product.value) {
+    addToCart(product.value, quantity.value);
+  }
 };
 
 onMounted(() => {

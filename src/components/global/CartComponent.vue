@@ -101,6 +101,8 @@
 </template>
 
 <script setup>
+import CartModule from "@/store/Cart";
+// import { storeToRefs } from "pinia";
 import { inject, onMounted, ref } from "vue";
 
 const emitter = inject("emitter");
@@ -110,7 +112,11 @@ const openDrawer = () => {
   isOpen.value = !isOpen.value;
 };
 
+const cartStore = CartModule();
+const { getCartItems } = cartStore;
+
 onMounted(() => {
   emitter.on("open-drawer", openDrawer);
+  getCartItems();
 });
 </script>
